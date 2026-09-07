@@ -542,6 +542,4 @@ Here are some helpful resources for continuing with the Serverless Framework:
 
 ## Security and Bug Disclosure
 
-We take security seriously. If you discover a security issue, please responsibly disclose it by contacting us at [support@serverless.com](mailto:support@serverless.com). Please do not publicly disclose vulnerabilities until we have addressed them.
-
-For more details, see our [Security Policy](./SECURITY.md).
+If you discover a security issue, please responsibly disclose it by opening a report via [GitHub Security Advisories](https://github.com/takuhii/serverless-node-next/security/advisories/new). Please do not publicly disclose vulnerabilities until they have been addressed.
