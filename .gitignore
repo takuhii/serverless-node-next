@@ -1,9 +1,12 @@
+**/node_modules
+**/dist
+# **/.env # TODO: Our tests use many .env files, so we cannot ignore them ATM.
+**/.serverless
+.DS_Store
+.idea
+
+# Build / test artifacts
 /.eslintcache
 /.nyc_output
 /coverage
-/dist
-/node_modules
 npm-debug.log
-/package-lock.json
-/yarn.lock
-**/.DS_Store
