@@ -1,202 +1,149 @@
 # serverless-node-next
 
-**A community-maintained fork of the Serverless Framework v3**, kept on the v3 line and extended with support for newer AWS Lambda Node.js runtimes (through `nodejs24.x`).
+**A community-maintained fork of the Serverless Framework v3, extended with support for newer AWS Lambda Node.js runtimes.**
 
-This project exists to let teams that are still on Serverless Framework v3 continue deploying to current Node.js Lambda runtimes without moving to v4. It tracks upstream v3 (`serverless@3.40.0`) as its baseline.
+This project keeps the Serverless Framework on its **v3** line while adding the AWS Lambda Node.js runtimes that were introduced after v3 stopped being actively developed. It exists for teams who want to keep deploying to current Node.js runtimes without migrating to Serverless Framework v4.
 
-The Serverless Framework is a command-line tool with an approachable YAML syntax for deploying your code and the cloud infrastructure it needs. It supports Node.js, TypeScript, Python, Go, Java, and more, and is extensible via a large plugin ecosystem.
+It tracks upstream `serverless@3.40.0` as its baseline and changes as little as possible on top of it.
+
+- **Baseline:** Serverless Framework v3.40.0
+- **License:** MIT (see [Credits](#credits))
+- **Not affiliated with or endorsed by Serverless, Inc.**
+
+## Contents
+
+- [What this fork changes](#what-this-fork-changes)
+- [Node.js runtime support](#nodejs-runtime-support)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Documentation](#documentation)
+- [Versioning](#versioning)
+- [Contributing](#contributing)
+- [Credits](#credits)
+- [License](#license)
+
+## What this fork changes
+
+Compared to the pristine v3.40.0 baseline, this fork:
+
+- **Adds newer AWS Lambda Node.js runtimes** to the configuration schema (see below).
+- **Rebrands** the package to `serverless-node-next` with its own repository and maintainer.
+- **Removes upstream-only governance and release tooling** (Serverless Inc. contributor process, commit linting, release pipelines) that is not relevant to an independent fork.
+
+Everything else — the CLI commands (`serverless` / `sls`), the `serverless.yml` schema, plugins, and provider behavior — is unchanged from v3. If you know Serverless Framework v3, you already know how to use this.
 
 ## Node.js runtime support
 
-This fork adds the following AWS Lambda runtimes to the v3 schema:
+This fork adds the following AWS Lambda runtimes to the v3 configuration schema:
 
 - `nodejs22.x`
 - `nodejs24.x`
 
-(in addition to the runtimes v3 already supported, up to `nodejs20.x`). The default runtime is unchanged.
+These are in addition to the runtimes upstream v3 already supported (up to `nodejs20.x`). You select them the usual way in `serverless.yml`:
 
-## Credits
+```yaml
+provider:
+  name: aws
+  runtime: nodejs22.x
+```
 
-This is a derivative of the [Serverless Framework](https://github.com/serverless/serverless) by Serverless, Inc., used under the MIT License. It is not affiliated with or endorsed by Serverless, Inc.
+or per function:
 
-<br/>
+```yaml
+functions:
+  hello:
+    handler: handler.hello
+    runtime: nodejs24.x
+```
 
-# Contents
-
-- [Features](#features)
-- [Quick Start](#quick-start)
-- [Plugins](https://github.com/serverless/plugins)
-- [Contributing](#contributing)
-- [Community](#community)
-- [Licensing](#licensing)
-
-# <a name="features"></a>Features
-
-- **Hyper-Productive** - Build more and manage less with serverless architectures.
-- **Multiple Use-Cases** - Choose from tons of efficient serverless use-cases (APIs, Scheduled Tasks, Event Handlers, Streaming Data Pipelines, Web Sockets & more).
-- **Infra & Code** - Deploys both code and infrastructure together, resulting in out-of-the-box serverless apps.
-- **Easy** - Enjoy simple syntax to safely deploy deploy AWS Lambda functions, event sources and more without being a cloud expert.
-- **Multi-Language** - Supports Node.js, Python, Java, Go, C#, Ruby, Swift, Kotlin, PHP, Scala, & F#
-- **Full Lifecycle** - Manages the lifecycle of your serverless architecture (build, deploy, update, monitor, troubleshoot).
-- **Multi-Domains** - Group domains into Serverless Services for easy management of code, resources & processes, across large projects & teams.
-- **Multi-Environments** - Built-in support for multiple stages (e.g. development, staging, production).
-- **Guardrails** - Loaded with automation, optimization and best practices.
-- **Extensible** - Extend or modify the Framework and its operations via Plugins.
-- **Plugin Ecosystem** - Extend or modify the Framework and its operations via Plugins.
-- **Welcoming** - A passionate and welcoming community!
-
-# <a name="quick-start"></a>Quick Start
-
-Here's how to get started quickly, as well as some recommended development workflows.
+The **default runtime is unchanged** (`nodejs16.x`), so existing services behave exactly as they did on v3 unless you opt in to a newer runtime. `serverless invoke local` already works with these runtimes, since it detects any `nodejs*` runtime generically.
 
 ## Installation
 
-Install `serverless` module via NPM:
+This fork is not published to npm under the `serverless` name. Install it directly from this repository.
+
+Global install from GitHub:
 
 ```bash
-npm install -g serverless
+npm install -g takuhii/serverless-node-next
 ```
 
-_If you don’t already have Node.js on your machine, [install it first](https://nodejs.org/). If you don't want to install Node or NPM, you can [install **serverless** as a standalone binary](https://www.serverless.com/framework/docs/install-standalone)._
-
-## Creating A Service
-
-To create your first project (known as a Serverless Framework "Service"), run the `serverless` command below, then follow the prompts.
+Or clone and link for local development:
 
 ```bash
-# Create a new serverless project
+git clone https://github.com/takuhii/serverless-node-next.git
+cd serverless-node-next
+npm install
+npm link   # exposes the `serverless` and `sls` commands globally
+```
+
+Requires Node.js `>=12` (matching the v3 baseline). Both the `serverless` and `sls` commands are available.
+
+## Usage
+
+Usage is identical to Serverless Framework v3.
+
+Create a new service:
+
+```bash
 serverless
-
-# Move into the newly created directory
-cd your-service-name
 ```
 
-The `serverless` command will guide you to:
-
-1. Create a new project
-2. Configure your [AWS credentials](https://serverless.com/framework/docs/providers/aws/guide/credentials/)
-3. Optionally set up a free Serverless Framework account with additional features.
-
-Your new serverless project will contain a `serverless.yml` file. This file features simple syntax for deploying infrastructure to AWS, such as AWS Lambda functions, infrastructure that triggers those functions with events, and additional infrastructure your AWS Lambda functions may need for various use-cases. You can learn more about this in the [Core Concepts documentation](https://www.serverless.com/framework/docs/providers/aws/guide/intro).
-
-The `serverless` command will give you a variety of templates to choose from. If those do not fit your needs, check out the [project examples from Serverless Inc. and our community](https://github.com/serverless/examples). You can install any example by passing a GitHub URL using the `--template-url` option:
-
-```base
-serverless --template-url=https://github.com/serverless/examples/tree/v3/...
-```
-
-Please note that you can use `serverless` or `sls` to run Serverless Framework commands.
-
-## Deploying
-
-If you haven't done so already within the `serverless` command, you can deploy the project at any time by running:
+Deploy the whole service:
 
 ```bash
 sls deploy
 ```
 
-The deployed AWS Lambda functions and other essential information such as API Endpoint URLs will be displayed in the command output.
-
-More details on deploying can be found [here](https://www.serverless.com/framework/docs/providers/aws/guide/deploying).
-
-## Developing On The Cloud
-
-Many Serverless Framework users choose to develop on the cloud, since it matches reality and emulating Lambda locally can be complex. To develop on the cloud quickly, without sacrificing speed, we recommend the following workflow...
-
-To deploy code changes quickly, skip the `serverless deploy` command which is much slower since it triggers a full AWS CloudFormation update. Instead, deploy code and configuration changes to individual AWS Lambda functions in seconds via the `deploy function` command, with `-f [function name in serverless.yml]` set to the function you want to deploy.
+Deploy a single function quickly (skips a full CloudFormation update):
 
 ```bash
 sls deploy function -f my-api
 ```
 
-More details on the `deploy function` command can be found [here](https://www.serverless.com/framework/docs/providers/aws/cli-reference/deploy-function).
-
-To invoke your AWS Lambda function on the cloud, you can find URLs for your functions w/ API endpoints in the `serverless deploy` output, or retrieve them via `serverless info`. If your functions do not have API endpoints, you can use the `invoke` command, like this:
+Invoke a deployed function, or run one locally:
 
 ```bash
-sls invoke -f hello
-
-# Invoke and display logs:
-serverless invoke -f hello --log
+sls invoke -f hello --log
+sls invoke local -f hello --data '{"a":"bar"}'
 ```
 
-More details on the `invoke` command can be found [here](https://www.serverless.com/framework/docs/providers/aws/cli-reference/invoke).
-
-To stream your logs while you work, use the `sls logs` command in a separate terminal window:
+Stream logs, or remove the service and all its AWS resources:
 
 ```bash
-sls logs -f [Function name in serverless.yml] -t
-```
-
-Target a specific function via the `-f` option and enable streaming via the `-t` option.
-
-## Developing Locally
-
-Many Serverless Framework users rely on local emulation to develop more quickly. Please note, emulating AWS Lambda and other cloud services is never accurate and the process can be complex. We recommend the following workflow to develop locally...
-
-Use the `invoke local` command to invoke your function locally:
-
-```bash
-sls invoke local -f my-api
-```
-
-You can also pass data to this local invocation via a variety of ways. Here's one of them:
-
-```bash
-serverless invoke local --function functionName --data '{"a":"bar"}'
-```
-
-More details on the `invoke local` command can be found [here](https://www.serverless.com/framework/docs/providers/aws/cli-reference/invoke-local)
-
-Serverless Framework also has a great plugin that allows you to run a server locally and emulate AWS API Gateway. This is the `serverless-offline` command.
-
-More details on the **serverless-offline** plugins command can be found [here](https://github.com/dherault/serverless-offline)
-
-## Monitoring, Secrets & Collaboration
-
-If you're looking for easy, out-of-the-box monitoring, secrets management and collaboration features, sign into the Serverless Framework Dashboard. It's free!
-
-```bash
-sls login
-```
-
-## Remove your service
-
-If you want to delete your service, run `remove`. This will delete all the AWS resources created by your project and ensure that you don't incur any unexpected charges. It will also remove the service from Serverless Dashboard.
-
-```bash
+sls logs -f hello -t
 sls remove
 ```
 
-More details on the `remove` command can be found [here](https://www.serverless.com/framework/docs/providers/aws/cli-reference/remove).
+## Documentation
 
-## What's Next
+Because this fork tracks v3 closely, the upstream **Serverless Framework v3 documentation** applies to nearly everything here:
 
-Here are some helpful resources for continuing with the Serverless Framework:
+- Core concepts: https://www.serverless.com/framework/docs/providers/aws/guide/intro
+- `serverless.yml` reference: https://www.serverless.com/framework/docs/providers/aws/guide/serverless.yml
+- Events that trigger Lambda: https://www.serverless.com/framework/docs/providers/aws/guide/events
 
-- [Study Serverless Framework's core concepts](https://www.serverless.com/framework/docs/providers/aws/guide/intro)
-- [Get inspiration from these Serverless Framework templates](https://github.com/serverless/examples)
-- [Discover all of the events that can trigger Lambda functions](https://www.serverless.com/framework/docs/providers/aws/guide/events)
-- [Bookmark Serverless Framework's `serverless.yml` guide](https://www.serverless.com/framework/docs/providers/aws/guide/serverless.yml)
-- [Search the plugins registry to extend Serverless Framework](https://www.serverless.com/plugins)
+The only intentional behavioral difference from upstream v3 is the added Node.js runtimes described above.
 
-# <a name="contributing"></a>Contributing
+## Versioning
 
-We love our contributors! Please read our [Contributing Document](CONTRIBUTING.md) to learn how you can start working on the Framework yourself.
+The version tracks the upstream v3 baseline it derives from (currently `3.40.0`). Fork-specific changes are recorded in the git history and `CHANGELOG.md`.
 
-Check out our [help wanted](https://github.com/serverless/serverless/labels/help%20wanted) or [good first issue](https://github.com/serverless/serverless/labels/good%20first%20issue) labels to find issues we want to move forward on with your help.
+## Contributing
 
-# <a name="community"></a>Community
+Contributions are welcome via issues and pull requests on this repository:
 
-- [Twitter](https://twitter.com/goserverless)
-- [Community Slack](https://serverless.com/slack)
-- [Serverless Meetups](http://www.meetup.com/serverless/)
-- [Stackoverflow](http://stackoverflow.com/questions/tagged/serverless-framework)
-- [Facebook](https://www.facebook.com/serverless)
-- [Contact Us](mailto:hello@serverless.com)
+- Issues: https://github.com/takuhii/serverless-node-next/issues
+- Pull requests: https://github.com/takuhii/serverless-node-next/pulls
 
-# <a name="licensing"></a>Licensing
+Please keep changes aligned with the goal of the project: stay close to Serverless Framework v3 and focus on keeping it working with current runtimes and dependencies rather than adding large new features.
 
-Serverless is licensed under the [MIT License](./LICENSE.txt).
+## Credits
 
-All files located in the node_modules and external directories are externally maintained libraries used by this software which have their own licenses; we recommend you read them, as their terms may differ from the terms in the MIT License.
+This project is a derivative of the [Serverless Framework](https://github.com/serverless/serverless) by Serverless, Inc., used under the MIT License. It is an independent community fork and is **not affiliated with, sponsored by, or endorsed by Serverless, Inc.** All trademarks are the property of their respective owners.
+
+## License
+
+Licensed under the [MIT License](./LICENSE.txt).
+
+Files in `node_modules` and other external directories are maintained by their respective authors and carry their own licenses, which may differ from this project's.
