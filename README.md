@@ -1,28 +1,23 @@
-[![sfv4_00000](https://github.com/serverless/serverless/assets/2752551/6cf62477-7834-49dc-9a41-f71b76d70a18)](https://github.com/serverless/serverless/tree/v4.0)
+# serverless-node-next
 
+**A community-maintained fork of the Serverless Framework v3**, kept on the v3 line and extended with support for newer AWS Lambda Node.js runtimes (through `nodejs24.x`).
 
-<h1></h1>
-<br/>
+This project exists to let teams that are still on Serverless Framework v3 continue deploying to current Node.js Lambda runtimes without moving to v4. It tracks upstream v3 (`serverless@3.40.0`) as its baseline.
 
-[![Serverless Application Framework AWS Lambda API Gateway](https://s3.amazonaws.com/assets.github.serverless/readme-serverless-framework.gif)](https://serverless.com)
+The Serverless Framework is a command-line tool with an approachable YAML syntax for deploying your code and the cloud infrastructure it needs. It supports Node.js, TypeScript, Python, Go, Java, and more, and is extensible via a large plugin ecosystem.
 
-[![serverless](http://public.serverless.com/badges/v3.svg)](http://www.serverless.com)
-[![Build Status](https://github.com/serverless/serverless/workflows/Integrate/badge.svg)](https://github.com/serverless/serverless/actions?query=workflow%3AIntegrate)
-[![npm version](https://badge.fury.io/js/serverless.svg)](https://badge.fury.io/js/serverless)
-[![codecov](https://codecov.io/gh/serverless/serverless/branch/master/graph/badge.svg)](https://codecov.io/gh/serverless/serverless)
-[![gitter](https://img.shields.io/gitter/room/serverless/serverless.svg)](https://gitter.im/serverless/serverless)
-[![Known Vulnerabilities](https://snyk.io/test/github/serverless/serverless/badge.svg)](https://snyk.io/test/github/serverless/serverless)
-[![license](https://img.shields.io/npm/l/serverless.svg)](https://www.npmjs.com/package/serverless)
+## Node.js runtime support
 
-[Website](http://www.serverless.com) • [Docs](https://serverless.com/framework/docs/) • [Community Slack](https://serverless.com/slack) • [Forum](http://forum.serverless.com) • [Twitter](https://twitter.com/goserverless) • [Meetups](https://www.meetup.com/pro/serverless/)
+This fork adds the following AWS Lambda runtimes to the v3 schema:
 
-<br/>
+- `nodejs22.x`
+- `nodejs24.x`
 
-**The Serverless Framework** – Build applications on AWS Lambda and other next-gen cloud services, that auto-scale and only charge you when they run. This lowers the total cost of running and operating your apps, enabling you to build more and manage less.
+(in addition to the runtimes v3 already supported, up to `nodejs20.x`). The default runtime is unchanged.
 
-The Serverless Framework is a command-line tool with an easy and approachable YAML syntax to deploy both your code and cloud infrastructure needed to make tons of serverless application use-cases. It's a multi-language framework that supports Node.js, Typescript, Python, Go, Java, and more. It's also completely extensible via over 1,000 plugins which add more serverless use-cases and workflows to the Framework.
+## Credits
 
-Actively maintained by [Serverless Inc](https://www.serverless.com).
+This is a derivative of the [Serverless Framework](https://github.com/serverless/serverless) by Serverless, Inc., used under the MIT License. It is not affiliated with or endorsed by Serverless, Inc.
 
 <br/>
 

@@ -1,11 +1,17 @@
 {
-  "name": "serverless",
+  "name": "serverless-node-next",
   "version": "3.40.0",
-  "description": "Serverless Framework - Build web, mobile and IoT applications with serverless architectures using AWS Lambda, Azure Functions, Google CloudFunctions & more",
+  "description": "A community-maintained fork of the Serverless Framework v3 with support for newer AWS Lambda Node.js runtimes (up to nodejs24.x).",
   "preferGlobal": true,
-  "homepage": "https://serverless.com/framework/docs/",
-  "author": "serverless.com",
-  "repository": "serverless/serverless",
+  "homepage": "https://github.com/takuhii/serverless-node-next#readme",
+  "author": "Darren Mackintosh",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/takuhii/serverless-node-next.git"
+  },
+  "bugs": {
+    "url": "https://github.com/takuhii/serverless-node-next/issues"
+  },
   "keywords": [
     "serverless",
     "lambda",
