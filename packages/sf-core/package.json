@@ -1,6 +1,7 @@
 {
   "name": "@serverlessinc/sf-core",
   "version": "4.31.1",
+  "private": true,
   "main": "src/index.js",
   "type": "module",
   "prettier": "@serverlessinc/standards",

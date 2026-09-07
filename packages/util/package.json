@@ -1,6 +1,7 @@
 {
   "name": "@serverless/util",
   "version": "1.0.0",
+  "private": true,
   "description": "Reusable utility functions for frameworks",
   "main": "index.js",
   "type": "module",

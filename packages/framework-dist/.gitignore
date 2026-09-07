@@ -1,3 +1,7 @@
+dist/
 lib/
 docs/
+node_modules/
+README.md
+LICENSE
 *.tgz

@@ -1,6 +1,7 @@
 {
-  "name": "serverless-node-next",
+  "name": "@serverless/framework",
   "version": "3.39.0",
+  "private": true,
   "description": "Use AWS Lambda and other managed cloud services to build apps that auto-scale, cost nothing when idle, and boast radically low maintenance.",
   "preferGlobal": true,
   "homepage": "https://serverless.com/framework/docs/",

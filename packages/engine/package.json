@@ -1,6 +1,7 @@
 {
   "name": "@serverless/engine",
   "version": "1.0.0",
+  "private": true,
   "description": "Reusable engine logic for CLI and external consumers",
   "type": "module",
   "main": "src/index.js",

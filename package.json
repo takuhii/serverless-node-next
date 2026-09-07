@@ -1,6 +1,7 @@
 {
   "name": "frameworks-core",
   "version": "0.0.0",
+  "private": true,
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,6 +10,7 @@
     "prettier": "prettier -c .",
     "prettier:fix": "prettier docs/**/* --write",
     "test": "npm run test:unit -w @serverlessinc/sf-core -w @serverless/framework",
+    "build:dist": "node scripts/build-dist.mjs",
     "setup-dev-mode": "bash setup-dev-for-dev-mode.sh",
     "prepare": "husky"
   },

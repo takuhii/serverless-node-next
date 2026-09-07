@@ -1,6 +1,7 @@
 {
   "name": "@serverlessinc/sf-core-installer",
   "version": "4.31.1",
+  "private": true,
   "description": "Serverless Framework with Node.js 22.x support",
   "main": "index.js",
   "scripts": {

@@ -1,17 +1,51 @@
 {
-  "name": "@serverlessinc/framework-alpha",
-  "version": "4.3.3",
-  "description": "",
-  "main": "index.js",
+  "name": "serverless-node-next",
+  "version": "4.31.1",
+  "description": "A community fork of the Serverless Framework (v3 lineage) with Node.js 20.x/22.x/24.x runtime support and nodejs22.x as the default Lambda runtime.",
   "type": "module",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
+  "main": "./dist/sf-core.js",
+  "preferGlobal": true,
   "bin": {
     "serverless": "./dist/sf-core.js",
     "sls": "./dist/sf-core.js"
+  },
+  "files": [
+    "dist/",
+    "!dist/**/*.map",
+    "lib/",
+    "docs/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepack": "node -e \"require('fs').cpSync('../../README.md','README.md');require('fs').cpSync('../../LICENSE','LICENSE')\""
+  },
+  "keywords": [
+    "serverless",
+    "serverless-framework",
+    "lambda",
+    "aws",
+    "nodejs22",
+    "nodejs24",
+    "cloud",
+    "faas"
+  ],
+  "author": "Darren Mackintosh",
+  "license": "MIT",
+  "homepage": "https://github.com/takuhii/serverless-node-next#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/takuhii/serverless-node-next.git"
+  },
+  "bugs": {
+    "url": "https://github.com/takuhii/serverless-node-next/issues"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "dependencies": {
     "@aws-sdk/client-cloudfront-keyvaluestore": "3.965.0",
