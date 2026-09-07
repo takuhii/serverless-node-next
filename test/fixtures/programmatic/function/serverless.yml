@@ -1,0 +1,14 @@
+service: service
+
+configValidationMode: error
+frameworkVersion: '*'
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+
+functions:
+  basic:
+    handler: basic.handler
+  other:
+    handler: other.handler
