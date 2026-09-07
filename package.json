@@ -1,6 +1,6 @@
 {
   "name": "serverless-node-next",
-  "version": "3.40.0",
+  "version": "3.41.0",
   "description": "A community-maintained fork of the Serverless Framework v3 with support for newer AWS Lambda Node.js runtimes (up to nodejs24.x).",
   "preferGlobal": true,
   "homepage": "https://github.com/takuhii/serverless-node-next#readme",
@@ -12,8 +12,14 @@
   "bugs": {
     "url": "https://github.com/takuhii/serverless-node-next/issues"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "serverless",
+    "serverless v3",
+    "V3",
+    "serverless node next",
     "lambda",
     "aws",
     "amazon",
