@@ -7,4 +7,6 @@
 /scripts/pkg
 /scripts/test
 /test
+/PUBLISHING.md
+/TODO.md
 !/lib/plugins/create/templates/**/.gitignore
