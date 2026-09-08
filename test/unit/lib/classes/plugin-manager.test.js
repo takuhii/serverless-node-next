@@ -413,6 +413,8 @@ describe('PluginManager', () => {
       resultRequire.resolve = (pluginPath) => resolveStub(directory, pluginPath);
       return resultRequire;
     },
+    // serverless-node-next: enterprise plugin is the local no-op stub; inject the mock.
+    '../plugins/dashboard-stub': EnterprisePluginMock,
   });
 
   beforeEach(() => {
@@ -597,7 +599,7 @@ describe('PluginManager', () => {
       mockRequire('ServicePluginMock1', ServicePluginMock1);
       mockRequire('ServicePluginMock2', ServicePluginMock2);
       mockRequire('BrokenPluginMock', BrokenPluginMock);
-      mockRequire('@serverless/dashboard-plugin', EnterprisePluginMock);
+      // serverless-node-next: enterprise plugin (dashboard-stub) is injected via proxyquire above.
     });
 
     it('should load only core plugins when no service plugins are given', async () => {
@@ -690,7 +692,6 @@ describe('PluginManager', () => {
       mockRequire.stop('ServicePluginMock1');
       mockRequire.stop('ServicePluginMock2');
       mockRequire.stop('BrokenPluginMock');
-      mockRequire.stop('@serverless/dashboard-plugin');
     });
   });
 
