@@ -10,6 +10,7 @@ Outstanding work for the fork. Completed items are kept briefly for context.
 - [x] Remove upstream governance/tooling cruft; commit `package-lock.json`.
 - [x] Publish prep: `publishConfig`, version `3.41.0`, `PUBLISHING.md`, `.github/workflows/publish-npm.yml`; verified via `npm pack` + install smoke test.
 - [x] PR1 — telemetry disabled by default; runtime auto-update disabled.
+- [x] Tier 3 (PR #7) — full decoupling from Serverless Inc. hosted services: no-op dashboard stub, `org`/`app` added to base schema, dashboard/platform imports removed from CLI rendering and interactive setup, login/logout/dashboard/output/param commands removed, `@serverless/dashboard-plugin` + `@serverless/platform-client` dropped (kept `@serverless/utils`). 127 unit tests pass.
 
 ## To publish to npm (blocked on account access — user action)
 
@@ -17,23 +18,14 @@ Outstanding work for the fork. Completed items are kept briefly for context.
 - [ ] Create an npm **Automation** token and add it as the GitHub repo secret `NPM_TOKEN` (for the publish workflow).
 - [ ] Cut the first release: confirm `version`, then either `npm publish --access public` or publish a GitHub Release to trigger the workflow.
 
-## Tier 3 — Full decoupling from Serverless Inc. hosted services
-
-Larger, entangled change; should be its own PR. Must be done as one coordinated set of edits.
-
-> Caveat: this permanently removes the `login`, `logout`, `dashboard`, `output`, and `param` commands and the `${param:...}` / `${output:...}` variable sources. Confirm these aren't relied upon before starting.
-
-- [ ] Stub `resolveEnterprisePlugin()` in `lib/classes/plugin-manager.js` to return a no-op plugin instead of `require('@serverless/dashboard-plugin')`, so `loadAllPlugins()` doesn't throw.
-- [ ] Add `org` and `app` (optional strings) to the base schema in `lib/config-schema.js` — the schema is closed (`additionalProperties: false`), so existing `serverless.yml` files using `org`/`app` will fail validation otherwise. **Critical gotcha.**
-- [ ] Remove the `dashboardLogin` / `dashboardSetOrg` steps from `lib/cli/interactive-setup/index.js`, and strip `@serverless/dashboard-plugin` imports from the shared interactive-setup files (`utils.js`, `aws-credentials.js`, `deploy.js`), removing the org/app-gated branches.
-- [ ] Remove dashboard-plugin imports from `lib/cli/render-version.js` and `lib/cli/handle-error.js`.
-- [ ] Remove login/logout/console + dashboard/output/param commands: `commands/login.js`, `commands/logout.js`, `lib/commands/login/`, and their declarations in `lib/cli/commands-schema/no-service.js`.
-- [ ] Drop `@serverless/dashboard-plugin`, `@serverless/platform-client`, and (if fully unused) `@serverless/utils` from `package.json`; regenerate the lockfile.
-- [ ] Verify: `npm test`; smoke-test `--help`, `--version`, `serverless package` on a minimal AWS service, and a `serverless.yml` containing `org`/`app` (must still validate). Re-run `npm pack --dry-run` + install test.
-
 ## Tier 2 — Cosmetic serverless.com string cleanup (optional, low priority)
 
-- [ ] Replace serverless.com display strings/links: `lib/classes/cli.js` banner, `lib/cli/render-help/general.js`, `lib/utils/log-deprecation.js` deprecation URLs, `lib/cli/handle-error.js` docs/forum links. (Two of these also import the dashboard plugin — coordinate with Tier 3.)
+Remaining display strings/links that still mention serverless.com. Purely cosmetic — no functional coupling. (`render-help/general.js` and `handle-error.js` were already cleaned up during Tier 3.)
+
+- [ ] `lib/classes/cli.js` banner (`serverless.com, v<version>`).
+- [ ] `lib/utils/log-deprecation.js` deprecation doc URLs (`https://www.serverless.com/framework/docs/deprecations/...`).
+- [ ] `lib/classes/config-schema-handler/index.js` link to serverless.com plugins docs.
+- [ ] Note: `scripts/pkg/config.js` still references `@serverless/dashboard-plugin` paths, but that's the standalone-binary packaging tooling (not shipped to npm, not on the runtime path). Only relevant if standalone-binary builds are ever revived.
 
 ## Housekeeping (optional)
 
