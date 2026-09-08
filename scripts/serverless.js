@@ -536,8 +536,7 @@ processSpanPromise = (async () => {
     // and not in Serverless class internals
     const notIntegratedCommands = new Set([
       'doctor',
-      'login',
-      'logout',
+      // serverless-node-next: 'login'/'logout' removed with the dashboard integration.
       'plugin install',
       'plugin uninstall',
     ]);

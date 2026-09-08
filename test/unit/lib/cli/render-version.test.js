@@ -8,6 +8,6 @@ describe('test/unit/lib/cli/list-version.test.js', () => {
   it('should log version', async () => {
     const output = await observeOutput(() => listVersion());
     expect(output).to.have.string('Framework Core: ');
-    expect(output).to.have.string('SDK: ');
+    // serverless-node-next: Plugin/SDK version lines removed with the dashboard integration.
   });
 });
